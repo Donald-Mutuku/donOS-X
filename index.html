@@ -3,26 +3,103 @@
     <head>
         <title>don OS X</title>
         <link rel="stylesheet" href="style.css">
-        <script src="script.js" defer></script>
     </head>
     <body>
         <div class="container">
             <div class="screen">
                 <div class="screenOverlay"></div>
                 <div class="desktop">
-                    <div class="window" id="window" style="width: 60cqi; height: 50cqi;">
-                        <div class="windowTitleBar" id="windowheader">
+                    <div class="desktopIconsContainer">
+                        <div class="desktopIconsColumn">
+                            <div class="desktopIcon">
+                                <img src="icons/tailsicon.png" id="welcomeopen">
+                                <p>Welcome</p>
+                            </div>
+                            <div class="desktopIcon">
+                                <img src="icons/hearticon.svg" id="hopeopen">
+                                <p>Hope</p>
+                            </div>
+                            <div class="desktopIcon">
+                                <img src="icons/notepad.png" id="notesopen">
+                                <p>Notes</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="window" id="welcome" style="width: 60cqi; height: 50cqi;">
+                        <div class="windowTitleBar" id="welcomeheader">
                             <p>Welcome!</p>
+                            <div class="windowControls">
+                                <span class="win-btn win-min"></span>
+                                <span class="win-btn win-max"></span>
+                                <span class="win-btn win-close" id="welcomeclose"></span>
+                            </div>
                         </div>
                         <div class="welcomeContent">
-                            <img src="Poster.png" style="width: 40%; height: auto; aspect-ratio: 1.95 / 1;">
+                            <img src="Poster.png" style="width: 20cqi; height: auto; aspect-ratio: 1.95 / 1;">
                             <div style="display: flex; flex-direction: row; gap: 5cqi;">
-                                <div style="display: flex; flex-direction: column; gap: 1cqi;">
+                                <div style="display: flex; flex-direction: column; gap: 1cqi; align-items: center; height: 100%;">
                                     <p style="font-family: 'Encode Sans Bold'; font-size: 2.3cqi; margin: 0; width: 100%;">Welcome to the new don OS X!</p>
-                                    <p style="font-family: 'Encode Sans Regular'; font-size: 1.5cqi; margin: 0; width: 100%;">The greatest update to the OS that wishes it existed.</p>
+                                    <p>The greatest update to the OS that wishes it existed.</p>
+                                    <div style="display: flex; flex-direction: column; justify-content: center; height: 100%; gap: 4cqi;">
+                                        <div style="display: flex; flex-direction: row; gap: 1cqi; width: 100%; height: fit-content;">
+                                            <img src="icons/tailspixel.png" style="width: 5cqi; height: 5cqi;">
+                                            <p>More tails crammed literally everywhere. It’s completely necessary trust me.</p>
+                                        </div>
+                                        <div style="display: flex; flex-direction: row; gap: 1cqi; width: 100%; height: fit-content;">
+                                            <img src="icons/accounts.png" style="width: 5cqi; height: 5cqi;">
+                                            <p>You still can’t make your own account. Ya can’t lose what ya never had.</p>
+                                        </div>
+                                        <div style="display: flex; flex-direction: row; gap: 1cqi; width: 100%; height: fit-content;">
+                                            <img src="icons/wifi.png" style="width: 5cqi; height: 5cqi;">
+                                            <p>Wi-Fi no worky. Me not know how fix. Sue me.</p>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="windowButtonsContainer">
+                            <button class="windowButton" data-action="close">
+                                <p>OK</p>
+                            </button>
+                            <button class="windowButton">
+                                <p>Whatever</p>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="window" id="hope" style="width: 30cqi; height: fit-content; align-items: center;">
+                        <div class="windowTitleBar" id="hopeheader">
+                            <p>Message from the stars</p>
+                            <div class="windowControls">
+                                <span class="win-btn win-min"></span>
+                                <span class="win-btn win-max"></span>
+                                <span class="win-btn win-close" id="hopeclose"></span>
+                            </div>
+                        </div>
+                        <div class="dialogContent">
+                                <img src="icons/hearticon.svg" style="width: 4cqi; height: 4cqi;">
+                                <p style="width: fit-content;">You are beautiful</p>
+                            </div>
+                            <div class="windowButtonsContainer" style="justify-content: center; align-items: center;">
+                                <button class="windowButton" data-action="close">
+                                    <p>I know</p>
+                                </button>
+                            </div>
+                    </div>
+                    <div class="window" id="notes" style="width: fit-content; height: fit-content; min-width: 10cqi; min-height: 10cqi; overflow: hidden; padding: 0;">
+                        <div class="windowTitleBar" id="notesheader" style="width: 100%;">
+                            <p>
+                                Notes
+                            </p>
+                            <div class="windowControls">
+                                <span class="win-btn win-min"></span>
+                                <span class="win-btn win-max"></span>
+                                <span class="win-btn win-close" id="notesclose"></span>
+                            </div>
+                        </div>
+                        <div style="display: flex; flex-direction: row; gap: 1cqi; padding: 0.3cqi; margin: 0; width: 100%; height: fit-content;">
+                            <button id="boldBtn">Bold</button>
+                        </div>
+                        <div style="width: 100%; height: 100%; min-width: 10cqi;"></div>
                     </div>
                 </div> 
                 <div class="taskbar">
@@ -46,10 +123,18 @@
             var currentTime = new Date().toLocaleTimeString([], {
                 hour: 'numeric',
                 minute: '2-digit',
-                hour12: 'true'
+                hour12: true
             }).toUpperCase();
             var timeString = document.querySelector("#timeElement");
-            timeString.innerHTML = currentTime
+            timeString.innerHTML = currentTime;
+            setInterval(function () {
+                document.querySelector("#timeElement").innerHTML = new Date().toLocaleTimeString([], {
+                    hour: 'numeric',
+                    minute: '2-digit',
+                    hour12: true
+                }).toUpperCase();
+            }, 1000);
         </script>
+        <script src="script.js"></script>
     </body>
 </html>
