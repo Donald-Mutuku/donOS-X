@@ -41,6 +41,7 @@ p {
 @font-face {
     font-family: 'Encode Sans SemiBold';
     src: url(fonts/EncodeSansCondensed-SemiBold.ttf);
+    font-weight: 700;
 }
 
 @font-face {
@@ -56,6 +57,12 @@ p {
 @font-face {
     font-family: 'Encode Sans Medium';
     src: url(fonts/EncodeSansCondensed-Medium.ttf);
+}
+
+@font-face {
+    font-family: 'Encode Sans Regular Italic';
+    src: url(fonts/EncodeSansCondensed-Regular.ttf);
+    font-style: italic;
 }
 
 .container {
@@ -87,12 +94,13 @@ p {
 
 .screen {
     position: absolute;
-    left: 8%;
-    top: 7%;
+    place-self: center;
+    inset: 0;
 
-    width: 83%;
-    height: 82%;
+    width: 81.5%;
+    height: 80%;
     z-index: 8;
+    padding-bottom: 1%;
 
     display: flex;
     flex-direction: column;
@@ -174,7 +182,7 @@ p {
     display: flex;
     flex-direction: row;
     gap: 1.5cqi;
-    padding: 5cqi;
+    padding: 3cqi;
     box-sizing: border-box;
     width: 100%;
     height: 100%;
@@ -183,11 +191,21 @@ p {
 .desktopIconsColumn {
     display: flex;
     flex-direction: column;
+    flex-wrap: wrap;
+
+
     gap: 1cqi;
     padding: 0;
     margin: 0;
     align-items: center;
     justify-content: left;
+
+    width: 7cqi;
+    height: 100%;
+}
+
+.desktopIconsColumn p {
+    text-overflow: ellipsis;
 }
 
 .desktopIcon {
@@ -196,6 +214,10 @@ p {
     gap: 0.2cqi;
     align-items: center;
     justify-content: center;
+    width: 8cqi;
+    height: fit-content;
+
+    overflow-x: hidden;
 }
 
 .desktopIcon img {
@@ -221,6 +243,7 @@ p {
     border: 0.3cqi solid #383034;
     background-color: #FFFAFC;
     box-shadow: 1cqi 1cqi 0cqi #383034;
+    box-sizing: border-box;
     
     padding: 0;
     padding-bottom: 1cqi;
@@ -235,6 +258,9 @@ p {
     flex-direction: row;
     box-sizing: border-box;
     align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    gap: 3cqi;
     
     padding: 0 0.5cqi;
     flex-shrink: 0;
@@ -244,6 +270,10 @@ p {
     
     width: 100%;
     height: 3cqi;
+}
+
+.windowTitleBar p {
+    text-overflow: ellipsis;
 }
 
 .win-btn {
@@ -327,7 +357,6 @@ p {
     gap: 0.5cqi;
 
     margin: 0;
-    padding-left: 4cqi;
 }
 
 .taskbarIcons {
@@ -377,12 +406,40 @@ p {
     max-height: 100%;
 }
 
-textarea {
+.notesField {
     width: 100%;
-    height: 100%;
+    min-width: 25cqi;
+    height: 100%; 
+    min-height: 10cqi;
+    overflow-wrap: break-word;
+    overflow: auto;
+    text-wrap: wrap;
+    box-sizing: border-box;
+
     padding: 1cqi;
     font-family: 'Encode Sans Regular';
-    font-size: 1.8cqi;
-    background-color: none;
-    box-sizing: border-box;
+    font-size: 2cqi;
+
+    display: block; 
+    white-space: pre-wrap;
 }
+
+.notesField:empty::before {
+    content: attr(data-placeholder);
+    color: #a6aca7;
+    pointer-events: none;
+    display: inline-block;
+}
+
+[contenteditable]:focus {
+    outline: 0px solid transparent;
+}
+
+.textFormat.active {
+    background-color: #D15C91;
+}
+
+.textFormat.active p {
+    color: #FFFAFC;
+}
+

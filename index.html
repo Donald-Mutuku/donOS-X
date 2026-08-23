@@ -10,7 +10,7 @@
                 <div class="screenOverlay"></div>
                 <div class="desktop">
                     <div class="desktopIconsContainer">
-                        <div class="desktopIconsColumn">
+                        <div class="desktopIconsColumn" id="icontainer">
                             <div class="desktopIcon">
                                 <img src="icons/tailsicon.png" id="welcomeopen">
                                 <p>Welcome</p>
@@ -20,8 +20,8 @@
                                 <p>Hope</p>
                             </div>
                             <div class="desktopIcon">
-                                <img src="icons/notepad.png" id="notesopen">
-                                <p>Notes</p>
+                                <img src="icons/notepad.webp" id="notesopen">
+                                <p>Notepad</p>
                             </div>
                         </div>
                     </div>
@@ -30,7 +30,7 @@
                             <p>Welcome!</p>
                             <div class="windowControls">
                                 <span class="win-btn win-min"></span>
-                                <span class="win-btn win-max"></span>
+                                <span class="win-btn win-max" id="welcomemax"></span>
                                 <span class="win-btn win-close" id="welcomeclose"></span>
                             </div>
                         </div>
@@ -70,8 +70,6 @@
                         <div class="windowTitleBar" id="hopeheader">
                             <p>Message from the stars</p>
                             <div class="windowControls">
-                                <span class="win-btn win-min"></span>
-                                <span class="win-btn win-max"></span>
                                 <span class="win-btn win-close" id="hopeclose"></span>
                             </div>
                         </div>
@@ -85,21 +83,27 @@
                                 </button>
                             </div>
                     </div>
-                    <div class="window" id="notes" style="width: fit-content; height: fit-content; min-width: 10cqi; min-height: 10cqi; overflow: hidden; padding: 0;">
+                    <div class="window" id="notes" style="width: 25cqi; min-width: 25cqi; height: 25cqi; min-height: 25cqi; overflow: hidden; overflow-wrap: break-word; resize: both;">
                         <div class="windowTitleBar" id="notesheader" style="width: 100%;">
-                            <p>
-                                Notes
+                            <p style="width: fit-content;">
+                                Notepad
                             </p>
+                            <p id="fileNameDisplay" style="min-width: 1cqi; text-overflow: ellipsis; overflow: hidden; max-height: 2cqi; display: inline-block; white-space: nowrap; width: fit-content;"></p>
                             <div class="windowControls">
                                 <span class="win-btn win-min"></span>
-                                <span class="win-btn win-max"></span>
+                                <span class="win-btn win-max" id="notesmax"></span>
                                 <span class="win-btn win-close" id="notesclose"></span>
                             </div>
                         </div>
-                        <div style="display: flex; flex-direction: row; gap: 1cqi; padding: 0.3cqi; margin: 0; width: 100%; height: fit-content;">
-                            <button id="boldBtn">Bold</button>
+                        <div style="display: flex; flex-direction: row; gap: 1cqi; padding: 1cqi; margin: 0; width: 100%; height: fit-content; box-sizing: border-box;">
+                            <button id="boldBtn" class="textFormat"><p style="font-weight: bold;">Bold</p></button>
+                            <button id="italicsBtn" class="textFormat"><p style="font-style: italic;">Italic</p></button>
                         </div>
-                        <div style="width: 100%; height: 100%; min-width: 10cqi;"></div>
+                        <div contenteditable="true" class="notesField" id="notesField" data-placeholder="Type your heart away..."></div>
+                        <div class="windowButtonsContainer">
+                            <button class="windowButton" id="save-btn"><p>Save</p></button>
+                            <button class="windowButton" id="new-btn"><p>New</p></button>
+                        </div>
                     </div>
                 </div> 
                 <div class="taskbar">
@@ -112,7 +116,7 @@
                         <img src="icons/Yuu.svg">
                     </div>
                     <div style="width: 100%; height: fit-content;">
-                        <p style="width: 100%; text-align: right; font-family: 'Encode Sans SemiBold'; font-size: 1.7cqi; margin: 0; color: #FFFAFC; padding-right: 4cqi; box-sizing: border-box;" id="timeElement"></p>
+                        <p style="width: 100%; text-align: right; font-family: 'Encode Sans SemiBold'; font-size: 1.7cqi; margin: 0; color: #FFFAFC; padding-right: 2cqi; box-sizing: border-box;" id="timeElement"></p>
                     </div>
                 </div>
                 <div class="virtualCursor" id="virtualCursor"></div>
