@@ -252,7 +252,6 @@ saveBtn.addEventListener('click', function(){
 
     else {
         const empty = notesField.textContent.replace(/\u00a0/g, ' ').trim() === "";
-
         if (empty) {
             alert("You can't save an empty file >:(");
             return;
@@ -275,6 +274,7 @@ saveBtn.addEventListener('click', function(){
 
         div.addEventListener('dblclick', function() {
             openWindow(notes);
+            currentFile = fileName;
             var fetched = localStorage.getItem(fileName);
             notesField.innerHTML = fetched;
             var fileNameDisplay = document.getElementById("fileNameDisplay");
@@ -286,9 +286,8 @@ saveBtn.addEventListener('click', function(){
 const newBtn = document.getElementById("new-btn");
 newBtn.addEventListener("click", function(e) {
     e.stopPropagation();
-    currentFile = null;
     notesField.innerHTML = "";
-
+    currentFile = null;
     fileNameDisplay.textContent = "";
 });
 
