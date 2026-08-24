@@ -320,6 +320,7 @@ start.addEventListener('click', function(){
 // paint app
 let isDrawing = false;
 let isErasing = false;
+let currentPaintFile= null;
 const board = document.getElementById("board");
 const context = board.getContext("2d");
 const paintWindow = document.getElementById("paint");
@@ -413,10 +414,11 @@ function savePaintContent() {
     const ctx = board.getContext("2d");
     const paintData = ctx.getImageData(0, 0, board.width, board.height).data;
     const hasStuffInside = paintData.some((value, index) => index % 4 === 3 && value !== 0);
-    if (paintName) {
-        localStorage.setItem(paintName, paintContent);
+    var paintContent = null;
+    if (currentPaintFile) {
+        localStorage.setItem(currentPaintFile, paintContent);
+        return;
     }
-    
     if (!hasStuffInside) {
         alert("Hey, what kind of painting is blank? >:(");
         return;
@@ -425,8 +427,10 @@ function savePaintContent() {
         if (!paintName) {
             return;
         }
-        const paintContent = board.toDataURL('image/png');
+        paintContent = board.toDataURL('image/png');
         localStorage.setItem(paintName, paintContent);
+        var paintNameDisplay = document.getElementById("paintNameDisplay");
+        paintNameDisplay.textContent = paintName;
 
         const div = document.createElement('div')
             div.classList.add('desktopIcon');
@@ -436,9 +440,8 @@ function savePaintContent() {
         div.addEventListener('dblclick', function() {
                 openWindow(paintWindow);
                 currentPaintFile = paintName;
-                var fetched = localStorage.getItem(paintName);
-                var paintNameDisplay = document.getElementById("paintNameDisplay");
                 paintNameDisplay.textContent = paintName;
+                var fetched = localStorage.getItem(paintName);
 
                 if (fetched) {
                     const img = new Image();
@@ -464,5 +467,14 @@ const newPaintBtn = document.getElementById("newPaint")
 newPaintBtn.addEventListener("click", function (){
     context.clearRect(0, 0, board.width, board.height);
     bigBoardContext.clearRect(0, 0, bigBoard.width, bigBoard.height);
-    paintName = null;
+    paintNameDisplay.textContent = null;
+    currentPaintFile = null;
 })
+
+const fillButton = document.getElementById("fill")
+fillButton.addEventListener("click", function() {
+    context.fillStyle = colorPicker.value;
+    context.fillRect(0, 0, board.width, board.height)
+    bigBoardContext.fillStyle = colorPicker.value;
+    bigBoardContext.fillRect(0, 0, bigBoard.width, bigBoard.height)
+});
