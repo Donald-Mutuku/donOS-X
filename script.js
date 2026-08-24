@@ -407,3 +407,62 @@ const resizeObserver = new ResizeObserver(() => {
 });
 
 resizeObserver.observe(paintWindow);
+
+
+function savePaintContent() {
+    const ctx = board.getContext("2d");
+    const paintData = ctx.getImageData(0, 0, board.width, board.height).data;
+    const hasStuffInside = paintData.some((value, index) => index % 4 === 3 && value !== 0);
+    if (paintName) {
+        localStorage.setItem(paintName, paintContent);
+    }
+    
+    if (!hasStuffInside) {
+        alert("Hey, what kind of painting is blank? >:(");
+        return;
+    } else {
+        var paintName = prompt("Please enter a file name:");
+        if (!paintName) {
+            return;
+        }
+        const paintContent = board.toDataURL('image/png');
+        localStorage.setItem(paintName, paintContent);
+
+        const div = document.createElement('div')
+            div.classList.add('desktopIcon');
+            div.innerHTML = `<img src=icons/canvas.svg> <p>${paintName}</p>`;
+            icontainer.appendChild(div);
+
+        div.addEventListener('dblclick', function() {
+                openWindow(paintWindow);
+                currentPaintFile = paintName;
+                var fetched = localStorage.getItem(paintName);
+                var paintNameDisplay = document.getElementById("paintNameDisplay");
+                paintNameDisplay.textContent = paintName;
+
+                if (fetched) {
+                    const img = new Image();
+                    img.onload = function() {
+                        context.clearRect(0, 0, board.width, board.height);
+                        bigBoardContext.clearRect(0, 0, bigBoard.width, bigBoard.height);
+
+                        context.drawImage(img, 0, 0);
+                        bigBoardContext.drawImage(img, 0, 0);
+                    };
+                    img.src = fetched;
+                }
+        });
+    }
+}
+
+const savePaintBtn = document.getElementById("savePaint");
+savePaintBtn.addEventListener("click", function() {
+    savePaintContent()
+})
+
+const newPaintBtn = document.getElementById("newPaint")
+newPaintBtn.addEventListener("click", function (){
+    context.clearRect(0, 0, board.width, board.height);
+    bigBoardContext.clearRect(0, 0, bigBoard.width, bigBoard.height);
+    paintName = null;
+})
