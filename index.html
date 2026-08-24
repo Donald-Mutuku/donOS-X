@@ -23,13 +23,16 @@
                                 <img src="icons/notepad.webp" id="notesopen">
                                 <p>Notepad</p>
                             </div>
+                            <div class="desktopIcon">
+                                <img src="icons/Paint.webp" id="paintopen">
+                                <p>Paint</p>
+                            </div>
                         </div>
                     </div>
                     <div class="window" id="welcome" style="width: 60cqi; height: 50cqi;">
                         <div class="windowTitleBar" id="welcomeheader">
                             <p>Welcome!</p>
                             <div class="windowControls">
-                                <span class="win-btn win-min"></span>
                                 <span class="win-btn win-max" id="welcomemax"></span>
                                 <span class="win-btn win-close" id="welcomeclose"></span>
                             </div>
@@ -90,14 +93,13 @@
                             </p>
                             <p id="fileNameDisplay" style="min-width: 1cqi; text-overflow: ellipsis; overflow: hidden; max-height: 2cqi; display: inline-block; white-space: nowrap; width: fit-content;"></p>
                             <div class="windowControls">
-                                <span class="win-btn win-min"></span>
                                 <span class="win-btn win-max" id="notesmax"></span>
                                 <span class="win-btn win-close" id="notesclose"></span>
                             </div>
                         </div>
                         <div style="display: flex; flex-direction: row; gap: 1cqi; padding: 1cqi; margin: 0; width: 100%; height: fit-content; box-sizing: border-box;">
-                            <button id="boldBtn" class="textFormat"><p style="font-weight: bold;">Bold</p></button>
-                            <button id="italicsBtn" class="textFormat"><p style="font-style: italic;">Italic</p></button>
+                            <button id="boldBtn" class="spec-btn"><p style="font-weight: bold;">Bold</p></button>
+                            <button id="italicsBtn" class="spec-btn"><p style="font-style: italic;">Italic</p></button>
                         </div>
                         <div contenteditable="true" class="notesField" id="notesField" data-placeholder="Type your heart away..."></div>
                         <div class="windowButtonsContainer">
@@ -105,9 +107,37 @@
                             <button class="windowButton" id="new-btn"><p>New</p></button>
                         </div>
                     </div>
+                    <div class="window" id="paint" style="width: 25cqi; min-width: 25cqi; height: 25cqi; min-height: 25cqi; overflow: hidden; resize: both;">
+                        <div class="windowTitleBar" id="paintheader" style="width: 100%;">
+                            <p style="width: fit-content">
+                                Paint
+                            </p>
+                            <p id="fileNameDisplay" style="min-width: 1cqi; text-overflow: ellipsis; overflow: hidden; max-height: 2cqi; display: inline-block; white-space: nowrap; width: fit-content;"></p>
+                            <div class="windowControls">
+                                <span class="win-btn win-max" id="paintmax"></span>
+                                <span class="win-btn win-close" id="paintclose"></span>
+                            </div>
+                        </div>
+                        <div id="toolbar" class="toolbar">
+                                <input type="color" id="colorPicker" value="#000000" style="width: 2cqi; height: 2cqi; padding: 0;">
+                                <input type="range" id="brushSize" min="1" max="50" value="5" style="width: 7cqi; height: auto;">
+                                <div style="display: flex; flex-direction: row; gap: 1cqi;">    
+                                    <button style="font-size: 1.5cqi; font-family: 'Encode Sans Regular';" id="clear" class="spec-btn">Clear</button>
+                                    <button style="font-size: 1.5cqi; font-family: 'Encode Sans Regular';" id="erase" class="spec-btn">Erase</button>
+                                    <button style="font-size: 1.5cqi; font-family: 'Encode Sans Regular';" id="fill" class="spec-btn">Fill</button>
+                                </div>
+                        </div>
+                        <div class="viewable-canvas">
+                            <canvas id="board"></canvas>
+                        </div>
+                        <div class="windowButtonsContainer">
+                            <button class="windowButton" id="savePaint"><p>Save</p></button>
+                            <button class="windowButton" id="newPaint"><p>New</p></button>
+                        </div>
+                    </div>
                 </div> 
                 <div class="taskbar">
-                    <div class="startButton">
+                    <div class="startButton" id="start">
                         <img src="icons/StartSymbol.svg">
                         <p>Start</p>
                     </div>

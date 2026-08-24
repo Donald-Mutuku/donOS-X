@@ -185,6 +185,9 @@ function openWindow(element) {
 
 function maximizeWindow(element) {
     if (element.isMax === true) {
+        element.style.placeSelf = '';
+        element.style.inset = '';
+        
         element.style.width = element.dataset.initWidth;
         element.style.height = element.dataset.initHeight;
         element.style.top = element.dataset.topCoords;
@@ -306,3 +309,101 @@ notesField.addEventListener('keydown', (e) => {
         }
     }
 });
+
+const start = document.getElementById("start");
+const startMenu = document.getElementById("startMenu")
+
+start.addEventListener('click', function(){
+
+})
+
+// paint app
+let isDrawing = false;
+let isErasing = false;
+const board = document.getElementById("board");
+const context = board.getContext("2d");
+const paintWindow = document.getElementById("paint");
+
+// this is to make sure drawings are preserved on resizing
+const bigBoard = document.createElement("canvas");
+const bigBoardContext = bigBoard.getContext("2d");
+
+bigBoard.width = 3840;
+bigBoard.height = 2160;
+
+const colorPicker = document.getElementById("colorPicker");
+const brushSize = document.getElementById("brushSize");
+const clearCanvas = document.getElementById("clear");
+const erase = document.getElementById("erase");
+const fill = document.getElementById("fill");
+
+erase.addEventListener("click", () => {
+    isErasing = !isErasing;
+    erase.classList.toggle("active", isErasing)
+})
+
+board.addEventListener("mousedown", (e) => {
+    isDrawing = true
+
+    const rect = board.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    context.beginPath();
+    context.moveTo(x, y);
+
+    bigBoardContext.beginPath();
+    bigBoardContext.moveTo(x, y);
+});
+
+board.addEventListener("mouseup", () => {
+    isDrawing = false;
+    context.beginPath();
+});
+board.addEventListener("mousemove", draw);
+
+clearCanvas.addEventListener("click", function(){
+    context.clearRect(0, 0, board.width, board.height);
+    bigBoardContext.clearRect(0, 0, bigBoard.width, bigBoard.height);
+});
+
+function draw(e) {
+    if (!isDrawing) return;
+    
+    const rect = board.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+        if (isErasing) {
+            context.clearRect(x - brushSize.value / 2, y - brushSize.value / 2, brushSize.value, brushSize.value);
+            bigBoardContext.clearRect(x - brushSize.value / 2, y - brushSize.value / 2, brushSize.value, brushSize.value);
+        } else {
+            context.strokeStyle = colorPicker.value;
+            context.lineWidth = brushSize.value;
+            context.lineCap = "round";
+            context.lineTo(x, y);
+            context.stroke();
+
+            bigBoardContext.strokeStyle = colorPicker.value;
+            bigBoardContext.lineWidth = brushSize.value;
+            bigBoardContext.lineCap = "round";
+            bigBoardContext.lineTo(x, y);
+            bigBoardContext.stroke()
+        }
+}
+
+function syncOnResize() {
+    const rect = board.getBoundingClientRect();
+    if (rect.width === 0 || rect.height === 0) return;
+    
+    board.width = rect.width;
+    board.height = rect.height;
+
+    context.drawImage(bigBoard, 0, 0);
+}
+
+const resizeObserver = new ResizeObserver(() => {
+    syncOnResize();
+});
+
+resizeObserver.observe(paintWindow);
