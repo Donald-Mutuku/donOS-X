@@ -1,5 +1,4 @@
 const screen = document.querySelector('.screen');
-const virtualCursor = document.getElementById('virtualCursor')
 
 let isDragging = false;
 let highestZIndex = 20;
@@ -18,19 +17,7 @@ screen.addEventListener('mousemove', (e) => {
 
     x = Math.max(0, Math.min(x, rect.width));
     y = Math.max(0, Math.min(y, rect.height));
-
-    virtualCursor.style.left = `${x}px`;
-    virtualCursor.style.top = `${y}px`;
 });
-
-screen.addEventListener('mouseenter', () =>{
-    virtualCursor.style.display = 'block';
-});
-
-screen.addEventListener('mouseleave', () => {
-    if (!isDragging) virtualCursor.style.display = 'none';
-});
-
 
 var windows = document.querySelectorAll(".window")
 windows.forEach(function(winElement) {
@@ -142,9 +129,6 @@ function dragElement(element) {
 
         x = Math.max(0, Math.min(x, rect.width));
         y = Math.max(0, Math.min(y, rect.height));
-
-        virtualCursor.style.left = `${x}px`;
-        virtualCursor.style.top = `${y}px`;
     }
 
     function stopDragging () {

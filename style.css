@@ -109,12 +109,17 @@ p {
     background-color: #0d130e;
     container-type: inline-size;
     overflow: hidden;
-    cursor: none;
+    cursor: url('cursors/arrow.cur'), auto;
 
     box-shadow: inset 0 0 80px rgba(0, 0, 0, 0.9), 0 0 20px rgba(0, 255, 65, 0.2);
 
     margin: 0 auto;
 }
+
+button, .startButton, .desktopIcon, .win-btn, .taskbarIcons img, .startMenuItem {
+    cursor: url('cursors/link.cur'), pointer;
+}
+
 
 .screen *{
     filter: blur(0.3px);
