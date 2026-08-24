@@ -313,8 +313,30 @@ notesField.addEventListener('keydown', (e) => {
 const start = document.getElementById("start");
 const startMenu = document.getElementById("startMenu")
 
-start.addEventListener('click', function(){
+start.addEventListener('click', function(e){
+    e.stopPropagation();
+    startMenu.classList.toggle("active");
+    if (startMenu.classList.contains("active")) {
+        bringToFront(startMenu);
+    }
+});
 
+document.addEventListener("click", function(e) {
+    if (!startMenu.contains(e.target) && !start.contains(e.target)) {
+        startMenu.classList.remove("active");
+    }
+});
+
+const openers = document.querySelectorAll("[data-action='open']");
+openers.forEach(function(opener) {
+    opener.addEventListener("click", function() {
+        const targetID = opener.dataset.target;
+        const windowToOpen = document.getElementById(targetID);
+        if (windowToOpen) {
+            openWindow(windowToOpen);
+        }
+        startMenu.classList.remove("active");
+    })
 })
 
 // paint app

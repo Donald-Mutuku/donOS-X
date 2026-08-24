@@ -431,6 +431,52 @@ p {
     max-height: 100%;
 }
 
+.startMenu {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 18cqi;
+    background-color: #FFFAFC;
+    border: 0.3cqi solid #383034;
+    z-index: 8;
+    padding: 0.5cqi;
+    gap: 0.5cqi;
+}
+
+.startMenu.active {
+    display: flex;
+}
+
+.startMenuItem {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1cqi;
+    padding: 0.5cqi;
+    cursor: pointer;
+}
+
+.startMenuItem:hover {
+    background-color: #D15C91;
+}
+
+.startMenuItem:hover {
+    color: #FFFAFC;
+}
+
+.startMenuItem img {
+    width: 2cqi;
+    height: 2cqi;
+}
+
+.startMenuItem p {
+    font-family: 'Encode Sans Medium';
+    font-size: 1.6cqi;
+    color: #383034;
+}
+
 .notesField {
     width: 100%;
     min-width: 25cqi;
