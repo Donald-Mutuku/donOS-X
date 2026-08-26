@@ -484,3 +484,17 @@ fillButton.addEventListener("click", function() {
     bigBoardContext.fillStyle = colorPicker.value;
     bigBoardContext.fillRect(0, 0, bigBoard.width, bigBoard.height)
 });
+
+const downloadBtn = document.getElementById("download");
+downloadBtn.addEventListener("click", function() {
+    const imageURI = board.toDataURL("image/png");
+    const link = document.createElement("a");
+    const downFileName = currentPaintFile ? currentPaintFile.replace(/\.[^/.]+$/, "") +".png" : "my-painting.png";
+
+    link.download = downFileName;
+    link.href = imageURI;
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+})
