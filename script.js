@@ -498,3 +498,23 @@ downloadBtn.addEventListener("click", function() {
     link.click();
     document.body.removeChild(link);
 })
+
+const changeBG = document.getElementById("changeBG");
+const newBG = document.getElementById("newBG");
+const desktop = document.querySelector(".desktop");
+
+changeBG.addEventListener("click", () => {
+    newBG.click();
+});
+
+newBG.addEventListener("change", function(e) {
+    const file = e.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (event) {
+            desktop.style.backgroundImage = `url("${event.target.result}")`;
+        };
+        reader.readAsDataURL(file);
+    }
+    startMenu.classList.remove("active");
+});
